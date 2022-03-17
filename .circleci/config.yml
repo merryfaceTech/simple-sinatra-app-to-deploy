@@ -16,8 +16,8 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - ruby/rspec-test
       - run: gem install nokogiri -v '1.10.10'
+      - ruby/rspec-test
       - run: gem install bundler
 
 workflows:
@@ -29,4 +29,4 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: main
+              only: tarikAndGeorgianaPlayWithHeroku
