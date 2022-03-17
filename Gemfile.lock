@@ -17,7 +17,7 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
-    nokogiri (1.10.10)
+    nokogiri (1.11.7)
       mini_portile2 (~> 2.4.0)
     public_suffix (4.0.6)
     puma (5.6.2)
@@ -60,7 +60,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
-  nokogiri (>= 1.10.10)
+  nokogiri (>= 1.11.7)
   puma
   rspec
   rspec_junit_formatter
