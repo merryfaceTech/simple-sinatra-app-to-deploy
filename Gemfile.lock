@@ -60,6 +60,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  nokogiri (>= 1.10.10)
   puma
   rspec
   rspec_junit_formatter
