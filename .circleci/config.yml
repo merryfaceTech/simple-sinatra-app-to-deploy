@@ -1,31 +1,30 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
+# Note that this was originally created in early 2021.
+# The Ruby orb was updated March 17th 2022
+# The Heroku orb was updated March 17th 2022
+# Both seem to be working, but there are issues with tests.
+# Maybe caused by outdated gems that are preventing tests from running? Investigating now...
+
 version: 2.1
 orbs:
+  ruby: circleci/ruby@1.4.0
   heroku: circleci/heroku@1.2.6
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  build_and_test:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: cimg/ruby:3.1-node
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - ruby/install-deps
+      - ruby/rspec-test
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  build_and_test_deploy:
     jobs:
-      - say-hello
-  heroku_deploy:
-    jobs:
-      - heroku/deploy-via-git
+      - build_and_test
+      - heroku/deploy-via-git:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: main
