@@ -16,6 +16,7 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+      - run: gem install nokogiri
       - run: gem install bundler
       - ruby/rspec-test
 
